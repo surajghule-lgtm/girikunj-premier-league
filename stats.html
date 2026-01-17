@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Player Stats - GPL 2026</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+  <title>Player Stats</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
-    <h1>GPL 2026 – Player Statistics</h1>
-    <p>Auto-updated from Live Scoring Panel</p>
-</header>
+<h1>📊 Player Statistics</h1>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Teams</a>
-    <a href="matches.html">Matches</a>
-    <a href="points.html">Points</a>
-    <a href="stats.html">Stats</a>
-    <a href="live.html">Watch Live</a>
-</nav>
+<table border="1" style="width:90%;margin:auto;">
+<tr>
+  <th>Player</th>
+  <th>Runs</th>
+  <th>Balls</th>
+  <th>Wickets</th>
+</tr>
+<tbody id="stats"></tbody>
+</table>
 
-<section class="points">
+<script>
+const stats = JSON.parse(localStorage.getItem("playerStats")) || {};
+const tbody = document.getElementById("stats");
 
-    <table class="points-table" id="playerTable">
-        <tr>
+for (let p in stats) {
+  tbody.innerHTML += `
+    <tr>
+      <td>${p}</td>
+      <td>${stats[p].runs || 0}</td>
+      <td>${stats[p].balls || 0}</td>
+      <td>${stats[p].wickets || 0}</td>
+    </tr>
+  `;
+}
+</script>
+
+</body>
+</html>
