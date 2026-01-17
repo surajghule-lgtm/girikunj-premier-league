@@ -6,25 +6,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
+:root{
+  --bg:#050f1e;
+  --card:#0f2d52;
+  --accent:#ffcc00;
+  --live:#ff3b3b;
+}
+
+*{box-sizing:border-box}
+
 body{
   margin:0;
-  font-family: Arial, sans-serif;
-  background:#061a33;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background:linear-gradient(180deg,#040b18,#071a33);
   color:#fff;
 }
 
 /* HEADER */
 header{
-  padding:15px;
+  padding:20px 15px;
   text-align:center;
-  background:#020b18;
+  background:radial-gradient(circle at top,#102c52,#020b18);
 }
 header h1{
-  margin:5px 0;
-  color:#ffcc00;
+  margin:0;
+  color:var(--accent);
+  font-size:26px;
 }
 header p{
-  margin:0;
+  margin:6px 0 0;
   font-size:14px;
   opacity:.9;
 }
@@ -33,64 +43,83 @@ header p{
 nav{
   display:flex;
   justify-content:space-around;
-  background:#0f2d52;
+  background:#0b2547;
   padding:10px 0;
 }
 nav a{
   color:#fff;
   text-decoration:none;
-  font-weight:bold;
+  font-weight:600;
+  font-size:14px;
 }
 
-/* COMMON CARD */
+/* CARD */
 .card{
-  background:#0f2d52;
-  margin:15px;
-  padding:15px;
-  border-radius:12px;
-  box-shadow:0 0 15px rgba(0,0,0,.5);
+  background:linear-gradient(180deg,#123461,#0c2444);
+  margin:16px;
+  padding:16px;
+  border-radius:14px;
+  box-shadow:0 0 18px rgba(0,0,0,.6);
 }
 
-/* LIVE SCORE */
+/* LIVE */
 .live{
-  border-left:5px solid red;
+  border-left:5px solid var(--live);
 }
 .live h2{
-  color:#ff4d4d;
+  margin-top:0;
+  color:var(--live);
 }
 #liveScore{
-  font-size:26px;
-  font-weight:bold;
-  margin-top:10px;
+  font-size:28px;
+  font-weight:700;
+  margin:10px 0;
   color:#00ffcc;
 }
 .watch{
   display:block;
   margin-top:10px;
-  background:#ff4d4d;
-  color:#fff;
-  padding:10px;
+  padding:12px;
   text-align:center;
-  border-radius:8px;
-  font-weight:bold;
+  background:var(--live);
+  color:#fff;
   text-decoration:none;
+  border-radius:10px;
+  font-weight:bold;
 }
 
 /* TEAMS */
 .teams{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-  gap:12px;
+  gap:14px;
+  margin-top:10px;
 }
 .team{
+  background:linear-gradient(180deg,#1b3f6b,#0c2341);
+  border-radius:14px;
+  padding:14px 10px;
   text-align:center;
 }
-.team img{
-  width:60px;
-  height:60px;
+.logo{
+  width:64px;
+  height:64px;
+  border-radius:50%;
+  margin:auto;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:22px;
+  font-weight:800;
+  color:#000;
 }
+.lions{background:linear-gradient(135deg,#f9d423,#ff4e50)}
+.tigers{background:linear-gradient(135deg,#ff512f,#dd2476)}
+.supersonic{background:linear-gradient(135deg,#00c6ff,#0072ff)}
+.strikers{background:linear-gradient(135deg,#8360c3,#2ebf91)}
+
 .team p{
-  margin:5px 0 0;
+  margin:8px 0 0;
   font-weight:bold;
 }
 
@@ -98,15 +127,16 @@ nav a{
 .match{
   display:flex;
   justify-content:space-between;
+  padding:10px 0;
+  border-bottom:1px solid rgba(255,255,255,.15);
   font-size:14px;
-  padding:8px 0;
-  border-bottom:1px solid rgba(255,255,255,.2);
 }
+.match:last-child{border-bottom:none}
 
 /* FOOTER */
 footer{
   text-align:center;
-  padding:15px;
+  padding:16px;
   font-size:13px;
   opacity:.8;
 }
@@ -127,11 +157,11 @@ footer{
   <a href="live.html">Watch Live</a>
 </nav>
 
-<!-- 🔴 LIVE SCORE -->
+<!-- 🔴 LIVE SCORECARD -->
 <div class="card live">
   <h2>🔴 LIVE MATCH</h2>
-  <div id="liveScore">Waiting for live score…</div>
-  <a href="live.html" class="watch">▶ Watch Live</a>
+  <div id="liveScore">Waiting for live match…</div>
+  <a class="watch" href="live.html">▶ Watch Live</a>
 </div>
 
 <!-- 🏏 TEAMS -->
@@ -139,71 +169,60 @@ footer{
   <h2>🏏 Teams</h2>
   <div class="teams">
     <div class="team">
-      <img src="https://via.placeholder.com/60?text=L" />
+      <div class="logo lions">🦁</div>
       <p>Lions</p>
     </div>
     <div class="team">
-      <img src="https://via.placeholder.com/60?text=T" />
+      <div class="logo tigers">🐯</div>
       <p>Tigers</p>
     </div>
     <div class="team">
-      <img src="https://via.placeholder.com/60?text=S" />
+      <div class="logo supersonic">⚡</div>
       <p>Supersonic</p>
     </div>
     <div class="team">
-      <img src="https://via.placeholder.com/60?text=ST" />
+      <div class="logo strikers">🎯</div>
       <p>Strikers</p>
     </div>
   </div>
 </div>
 
-<!-- 📅 UPCOMING MATCHES -->
+<!-- 📅 UPCOMING -->
 <div class="card">
   <h2>📅 Upcoming Matches</h2>
   <div class="match">
     <span>Lions vs Tigers</span>
-    <span>Today 6:30 PM</span>
+    <span>Today • 6:30 PM</span>
   </div>
   <div class="match">
     <span>Supersonic vs Strikers</span>
-    <span>Tomorrow 6:30 PM</span>
+    <span>Tomorrow • 6:30 PM</span>
   </div>
 </div>
 
 <!-- 🗓 FULL SCHEDULE -->
 <div class="card">
-  <h2>🗓 Full Schedule</h2>
-  <div class="match">
-    <span>Lions vs Supersonic</span>
-    <span>Match 1</span>
-  </div>
-  <div class="match">
-    <span>Tigers vs Strikers</span>
-    <span>Match 2</span>
-  </div>
-  <div class="match">
-    <span>Lions vs Tigers</span>
-    <span>Match 3</span>
-  </div>
-  <div class="match">
-    <span>Supersonic vs Tigers</span>
-    <span>Match 4</span>
-  </div>
+  <h2>🗓 Tournament Schedule</h2>
+  <div class="match"><span>Lions vs Supersonic</span><span>Match 1</span></div>
+  <div class="match"><span>Tigers vs Strikers</span><span>Match 2</span></div>
+  <div class="match"><span>Lions vs Tigers</span><span>Match 3</span></div>
+  <div class="match"><span>Supersonic vs Tigers</span><span>Match 4</span></div>
 </div>
 
 <footer>
-  © GPL 2026 | Girikunj Housing Society
+  © 2026 Girikunj Premier League • Built with ❤️
 </footer>
 
 <!-- 🔄 LIVE SCORE SCRIPT -->
 <script>
 function updateLive(){
   const data = JSON.parse(localStorage.getItem("liveScore"));
+  const box = document.getElementById("liveScore");
   if(!data){
-    document.getElementById("liveScore").innerText="No match live right now";
+    box.innerText="No live match currently";
     return;
   }
-  document.getElementById("liveScore").innerHTML = `
+  box.innerHTML = `
     ${data.match}<br>
     ${data.runs}/${data.wickets} (${data.overs} ov)
   `;
