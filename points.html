@@ -1,72 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Points Table - GPL 2026</title>
-    <link rel="stylesheet" href="css/style.css">
+  <title>Points Table</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
-    <h1>GPL 2026 – Points Table</h1>
-    <p>Win = 2 Points | Tie = Super Over</p>
-</header>
+<h1>🏆 Points Table</h1>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Teams</a>
-    <a href="matches.html">Matches</a>
-    <a href="points.html">Points</a>
-    <a href="live.html">Watch Live</a>
-</nav>
+<table border="1" style="width:90%;margin:auto;">
+<tr>
+  <th>Team</th>
+  <th>Played</th>
+  <th>Won</th>
+  <th>Points</th>
+  <th>NRR</th>
+</tr>
+<tbody id="table"></tbody>
+</table>
 
-<section class="points">
+<script>
+const data = JSON.parse(localStorage.getItem("points")) || {};
+const table = document.getElementById("table");
 
-    <table class="points-table">
-        <tr>
-            <th>Team</th>
-            <th>Matches</th>
-            <th>Wins</th>
-            <th>Loss</th>
-            <th>Points</th>
-        </tr>
-        <tr>
-            <td>Girikunj Lions</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Girikunj Supersonic</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Girikunj Tigers</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-        <tr>
-            <td>Girikunj Strikers</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-            <td>0</td>
-        </tr>
-    </table>
-
-    <p class="note">Top 2 teams qualify for the Final</p>
-
-</section>
-
-<footer>
-    <p>© 2026 Girikunj Premier League</p>
-</footer>
+for (let t in data) {
+  const nrr = (data[t].runs / data[t].overs).toFixed(2);
+  table.innerHTML += `
+    <tr>
+      <td>${t}</td>
+      <td>${data[t].played}</td>
+      <td>${data[t].won}</td>
+      <td>${data[t].won * 2}</td>
+      <td>${nrr}</td>
+    </tr>
+  `;
+}
+</script>
 
 </body>
 </html>
