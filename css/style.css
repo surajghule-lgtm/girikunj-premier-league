@@ -1,0 +1,179 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #07182e;
+    color: white;
+    text-align: center;
+}
+
+header {
+    background: linear-gradient(to right, #001f3f, #003366);
+    padding: 25px;
+}
+
+nav {
+    background: #000814;
+    padding: 12px;
+}
+
+nav a {
+    color: #f5c518;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: white;
+}
+
+section {
+    padding: 40px;
+}
+
+footer {
+    background: #000;
+    padding: 15px;
+    margin-top: 30px;
+    font-size: 14px;
+}
+.teams {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 30px;
+}
+
+.team-card {
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.team-card h2 {
+    margin-top: 0;
+    color: gold;
+}
+
+.team-card ul {
+    list-style: none;
+    padding: 0;
+}
+
+.team-card li {
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+}
+
+/* Team Colors */
+.lions {
+    background: linear-gradient(to bottom, #1a2a6c, #fdbb2d);
+}
+
+.supersonic {
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+}
+
+.tigers {
+    background: linear-gradient(to bottom, #c31432, #240b36);
+}
+
+.strikers {
+    background: linear-gradient(to bottom, #ff512f, #dd2476);
+}
+.schedule {
+    padding: 40px;
+}
+
+.schedule-table {
+    width: 90%;
+    max-width: 800px;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.schedule-table th {
+    background: #001f3f;
+    color: white;
+    padding: 12px;
+}
+
+.schedule-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.schedule-table tr:hover {
+    background-color: #f2f2f2;
+}
+
+.final-match {
+    background: #f5c518;
+    font-weight: bold;
+}
+
+.note {
+    margin-top: 20px;
+    color: #f5c518;
+    font-weight: bold;
+}
+.points {
+    padding: 40px;
+}
+
+.points-table {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+    border-collapse: collapse;
+    background: white;
+    color: black;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.points-table th {
+    background: #0a1a2a;
+    color: gold;
+    padding: 12px;
+}
+
+.points-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+.points-table tr:hover {
+    background-color: #f5f5f5;
+}
+
+.note {
+    margin-top: 20px;
+    color: #f5c518;
+    font-weight: bold;
+}
+.live-section {
+    padding: 40px;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%; /* 16:9 ratio */
+    height: 0;
+    max-width: 800px;
+    margin: auto;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 15px;
+    border: 4px solid gold;
+}
