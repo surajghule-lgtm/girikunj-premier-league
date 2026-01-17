@@ -8,20 +8,9 @@
 </head>
 <body>
 
-<!-- 🔐 ADMIN PASSWORD PROTECTION -->
-<script>
-const ADMIN_PASSWORD = "GPL2026";
-const enteredPassword = prompt("Enter Admin Password");
-
-if (enteredPassword !== ADMIN_PASSWORD) {
-  document.body.innerHTML =
-    "<h1 style='color:red;text-align:center;margin-top:50px;'>🚫 Access Denied</h1>";
-}
-</script>
-
 <h1>🔐 Live Scoring Panel (Admin)</h1>
 
-<div style="max-width:400px;margin:auto;text-align:left;">
+<div id="adminPanel" style="max-width:400px;margin:auto;text-align:left;display:none;">
 
   <label>Runs</label>
   <input type="number" id="runs" value="0">
@@ -41,16 +30,28 @@ if (enteredPassword !== ADMIN_PASSWORD) {
   <label>Bowler (for wicket)</label>
   <input type="text" id="bowler" placeholder="Bowler name">
 
-  <button type="button" onclick="saveScore()">Save Score</button>
+  <button id="saveBtn">Save Score</button>
 
   <p id="status" style="margin-top:15px;font-weight:bold;"></p>
 </div>
 
+<p id="errorMsg" style="color:red;text-align:center;font-size:18px;"></p>
+
+<!-- 🔐 PASSWORD CHECK (SAFE) -->
+<script>
+const ADMIN_PASSWORD = "GPL2026";
+const entered = prompt("Enter Admin Password");
+
+if (entered === ADMIN_PASSWORD) {
+  document.getElementById("adminPanel").style.display = "block";
+} else {
+  document.getElementById("errorMsg").innerText = "🚫 Access Denied";
+}
+</script>
+
 <!-- 📊 SCORING LOGIC -->
 <script>
 function saveScore() {
-
-  // Read inputs
   const runs = Number(document.getElementById("runs").value);
   const wickets = Number(document.getElementById("wickets").value);
   const overs = document.getElementById("overs").value;
@@ -59,41 +60,33 @@ function saveScore() {
   let batRuns = Number(document.getElementById("batRuns").value);
   let bowler = document.getElementById("bowler").value.trim();
 
-  // Normalize names (capitalize)
   batsman = batsman.replace(/\b\w/g, c => c.toUpperCase());
   bowler = bowler.replace(/\b\w/g, c => c.toUpperCase());
 
-  // Save live score
   localStorage.setItem("liveScore", JSON.stringify({
-    runs: runs,
-    wickets: wickets,
-    overs: overs
+    runs, wickets, overs
   }));
 
-  // Load or init players
   let players = JSON.parse(localStorage.getItem("players")) || {};
 
   if (batsman) {
-    if (!players[batsman]) {
-      players[batsman] = { runs: 0, wickets: 0 };
-    }
+    if (!players[batsman]) players[batsman] = { runs: 0, wickets: 0 };
     players[batsman].runs += batRuns;
   }
 
   if (bowler) {
-    if (!players[bowler]) {
-      players[bowler] = { runs: 0, wickets: 0 };
-    }
+    if (!players[bowler]) players[bowler] = { runs: 0, wickets: 0 };
     players[bowler].wickets += 1;
   }
 
-  // Save players
   localStorage.setItem("players", JSON.stringify(players));
 
-  // Status message
   document.getElementById("status").innerText =
     "✅ Score & Player Stats Saved Successfully";
 }
+
+// SAFELY attach button click
+document.getElementById("saveBtn").addEventListener("click", saveScore);
 </script>
 
 </body>
