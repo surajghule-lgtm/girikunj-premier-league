@@ -8,165 +8,83 @@
   <style>
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #071a33;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: linear-gradient(to bottom, #061a33, #020b18);
       color: #fff;
       text-align: center;
     }
 
     h1 {
-      margin: 20px 0;
+      margin: 15px 0;
     }
 
-    .container {
-      max-width: 360px;
-      margin: 0 auto;
-      background: #0f2c52;
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .field {
-      margin-bottom: 14px;
-      text-align: left;
+    .card {
+      max-width: 380px;
+      margin: 15px auto;
+      background: #0f2d52;
+      padding: 18px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
     }
 
     label {
       display: block;
-      margin-bottom: 4px;
-      font-size: 14px;
+      text-align: left;
+      margin-top: 10px;
+      font-size: 13px;
       color: #ffcc00;
     }
 
-    input {
+    select, input {
       width: 100%;
-      padding: 8px;
+      padding: 9px;
       font-size: 14px;
       border-radius: 6px;
       border: none;
       box-sizing: border-box;
+      margin-top: 4px;
     }
 
-    button {
-      width: 100%;
-      margin-top: 10px;
-      padding: 12px;
-      font-size: 16px;
-      background: #ffcc00;
-      color: #000;
-      border: none;
-      border-radius: 6px;
+    .score-preview {
+      font-size: 22px;
       font-weight: bold;
-      cursor: pointer;
+      margin: 15px 0;
+      color: #00ffcc;
     }
 
-    button:hover {
-      background: #ffd633;
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .run { background: #ffcc00; color: #000; }
+    .wicket { background: #ff4d4d; color: #fff; }
+
+    .save {
+      background: #00cc66;
+      color: #000;
+      width: 100%;
+      margin-top: 15px;
     }
 
     #status {
       margin-top: 10px;
-      color: lightgreen;
       font-weight: bold;
+      color: lightgreen;
     }
 
     #denied {
-      margin-top: 30px;
       color: red;
-      font-size: 18px;
-    }
-  </style>
-</head>
-<body>
-
-<h1>🔐 Live Scoring Panel (Admin)</h1>
-
-<div id="panel" class="container" style="display:none;">
-
-  <div class="field">
-    <label>Runs</label>
-    <input id="runs" type="number" value="0">
-  </div>
-
-  <div class="field">
-    <label>Wickets</label>
-    <input id="wickets" type="number" value="0">
-  </div>
-
-  <div class="field">
-    <label>Overs (example: 3.2)</label>
-    <input id="overs" type="text" value="0.0">
-  </div>
-
-  <div class="field">
-    <label>Batsman</label>
-    <input id="batsman" type="text" placeholder="Player name">
-  </div>
-
-  <div class="field">
-    <label>Runs this ball</label>
-    <input id="batRuns" type="number" value="0">
-  </div>
-
-  <div class="field">
-    <label>Bowler (for wicket)</label>
-    <input id="bowler" type="text" placeholder="Bowler name">
-  </div>
-
-  <button id="saveBtn">Save Score</button>
-
-  <div id="status"></div>
-</div>
-
-<div id="denied"></div>
-
-<script>
-/* PASSWORD */
-const PASSWORD = "GPL2026";
-const entered = prompt("Enter Admin Password");
-
-if (entered === PASSWORD) {
-  document.getElementById("panel").style.display = "block";
-} else {
-  document.getElementById("denied").innerText = "🚫 Access Denied";
-}
-
-/* SAVE SCORE */
-function saveScore() {
-  const runs = Number(document.getElementById("runs").value);
-  const wickets = Number(document.getElementById("wickets").value);
-  const overs = document.getElementById("overs").value;
-
-  let batsman = document.getElementById("batsman").value.trim();
-  let batRuns = Number(document.getElementById("batRuns").value);
-  let bowler = document.getElementById("bowler").value.trim();
-
-  batsman = batsman.replace(/\b\w/g, c => c.toUpperCase());
-  bowler = bowler.replace(/\b\w/g, c => c.toUpperCase());
-
-  localStorage.setItem("liveScore", JSON.stringify({ runs, wickets, overs }));
-
-  let players = JSON.parse(localStorage.getItem("players")) || {};
-
-  if (batsman) {
-    if (!players[batsman]) players[batsman] = { runs: 0, wickets: 0 };
-    players[batsman].runs += batRuns;
-  }
-
-  if (bowler) {
-    if (!players[bowler]) players[bowler] = { runs: 0, wickets: 0 };
-    players[bowler].wickets += 1;
-  }
-
-  localStorage.setItem("players", JSON.stringify(players));
-
-  document.getElementById("status").innerText = "✅ Score saved successfully";
-}
-
-window.onload = () => {
-  document.getElementById("saveBtn").addEventListener("click", saveScore);
-};
-</script>
-
-</body>
-</html>
+      ma
