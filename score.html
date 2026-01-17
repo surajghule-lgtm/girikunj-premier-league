@@ -1,37 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Live Scoring - GPL</title>
+  <title>Live Scoring Admin - GPL</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>Live Scoring Panel</h1>
+<h1>🔐 Live Scoring Panel (Admin)</h1>
 
-<h2 id="score">Score: 0 / 0</h2>
+<div style="max-width:400px;margin:auto;">
 
-<button onclick="addRun(1)">+1 Run</button>
-<button onclick="addRun(4)">+4 Runs</button>
-<button onclick="addRun(6)">+6 Runs</button>
-<button onclick="addWicket()">Wicket</button>
+  <label>Runs</label><br>
+  <input type="number" id="runs" value="0"><br><br>
+
+  <label>Wickets</label><br>
+  <input type="number" id="wickets" value="0"><br><br>
+
+  <label>Overs (example: 3.2)</label><br>
+  <input type="text" id="overs" value="0.0"><br><br>
+
+  <button onclick="saveScore()">Save Score</button>
+
+  <p id="status"></p>
+
+</div>
 
 <script>
-let runs = 0;
-let wickets = 0;
+function saveScore() {
+  const runs = document.getElementById("runs").value;
+  const wickets = document.getElementById("wickets").value;
+  const overs = document.getElementById("overs").value;
 
-function addRun(r) {
-  runs += r;
-  updateScore();
-}
+  localStorage.setItem("liveScore", JSON.stringify({
+    runs: runs,
+    wickets: wickets,
+    overs: overs
+  }));
 
-function addWicket() {
-  wickets += 1;
-  updateScore();
-}
-
-function updateScore() {
-  document.getElementById("score").innerText =
-    "Score: " + runs + " / " + wickets;
+  document.getElementById("status").innerText =
+    "✅ Score Updated: " + runs + "/" + wickets + " (" + overs + " overs)";
 }
 </script>
 
