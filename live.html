@@ -1,49 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Watch Live - GPL 2 2026</title>
-    <link rel="stylesheet" href="css/style.css">
+  <title>Watch Live – GPL</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<header>
-    <h1>GPL 2 2026 – Watch Live</h1>
-    <p>Live Streaming from Paradise Arena</p>
-</header>
+<h1>🔴 LIVE SCORE</h1>
+<div class="card" id="liveBox">Loading...</div>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Teams</a>
-    <a href="matches.html">Matches</a>
-    <a href="points.html">Points</a>
-    <a href="live.html">Watch Live</a>
-</nav>
+<script>
+function refreshLive() {
+  const data = JSON.parse(localStorage.getItem("liveScore"));
+  if (!data) {
+    document.getElementById("liveBox").innerText = "No live match";
+    return;
+  }
 
-<section class="live-section">
-
-    <h2>🔴 Live Match Streaming</h2>
-
-    <div class="video-container">
-        <!-- Replace VIDEO_ID with your YouTube Live video ID -->
-        <iframe 
-            src="https://www.youtube.com/embed/VIDEO_ID" 
-            title="Live Match"
-            frameborder="0"
-            allowfullscreen>
-        </iframe>
-    </div>
-
-    <p class="note">
-        📢 If the stream is not live yet, please wait.
-        The video will appear once the match starts.
+  document.getElementById("liveBox").innerHTML = `
+    <h2>${data.match}</h2>
+    <p style="font-size:32px;">
+      ${data.runs}/${data.wickets}
     </p>
-
-</section>
-
-<footer>
-    <p>© 2026 Girikunj Premier League</p>
-</footer>
+    <p>Overs: ${data.overs}</p>
+  `;
+}
+refreshLive();
+setInterval(refreshLive, 2000);
+</script>
 
 </body>
 </html>
