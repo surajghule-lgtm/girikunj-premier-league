@@ -44,38 +44,61 @@ if (userInput !== adminPassword) {
 </div>
 
 <script>
+<script>
 function saveScore() {
+  // Read score inputs
   const runs = parseInt(document.getElementById("runs").value);
   const wickets = parseInt(document.getElementById("wickets").value);
   const overs = document.getElementById("overs").value;
 
-  const batsman = document.getElementById("batsman").value;
-  const batRuns = parseInt(document.getElementById("batRuns").value);
-  const bowler = document.getElementById("bowler").value;
+  // Read player inputs
+  let batsman = document.getElementById("batsman").value.trim();
+  let batRuns = parseInt(document.getElementById("batRuns").value);
+  let bowler = document.getElementById("bowler").value.trim();
 
+  // Normalize names (Capital first letter)
+  batsman = batsman.replace(/\b\w/g, c => c.toUpperCase());
+  bowler = bowler.replace(/\b\w/g, c => c.toUpperCase());
+
+  // Save live score
   localStorage.setItem("liveScore", JSON.stringify({
     runs, wickets, overs
   }));
 
-  let players = JSON.parse(localStorage.getItem("players"));
+  // Load or initialize players
+  let players = JSON.parse(localStorage.getItem("players")) || {};
 
-  if (players[batsman]) {
+  // Create batsman if not exists
+  if (batsman) {
+    if (!players[batsman]) {
+      players[batsman] = { runs: 0, wickets: 0 };
+    }
     players[batsman].runs += batRuns;
   }
 
-  if (bowler && players[bowler]) {
+  // Create bowler if not exists
+  if (bowler) {
+    if (!players[bowler]) {
+      players[bowler] = { runs: 0, wickets: 0 };
+    }
     players[bowler].wickets += 1;
   }
 
+  // Save players back
   localStorage.setItem("players", JSON.stringify(players));
 
-  document.getElementById("status").innerText = "✅ Score & Player Stats Updated";
+  // Status message
+  document.getElementById("status").innerText =
+    "✅ Score & Player Stats Updated Successfully";
 }
+</script>
+
 
 </script>
 
 </body>
 </html>
+
 
 
 
