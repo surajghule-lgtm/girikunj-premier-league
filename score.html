@@ -87,4 +87,51 @@
 
     #denied {
       color: red;
-      ma
+      margin-top: 30px;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+
+<h1>🔐 Live Scoring Panel</h1>
+
+<div id="panel" class="card" style="display:none;">
+
+  <label>Match</label>
+  <select id="match">
+    <option>Lions vs Tigers</option>
+    <option>Lions vs Supersonic</option>
+    <option>Tigers vs Strikers</option>
+    <option>Supersonic vs Strikers</option>
+  </select>
+
+  <div class="score-preview" id="preview">0/0 (0.0)</div>
+
+  <label>Overs</label>
+  <input id="overs" type="text" value="0.0">
+
+  <label>Batsman</label>
+  <input id="batsman" placeholder="Player name">
+
+  <label>Bowler</label>
+  <input id="bowler" placeholder="Bowler name">
+
+  <div class="btn-row">
+    <button class="btn run" onclick="addRuns(1)">+1</button>
+    <button class="btn run" onclick="addRuns(4)">+4</button>
+    <button class="btn run" onclick="addRuns(6)">+6</button>
+    <button class="btn wicket" onclick="addWicket()">W</button>
+  </div>
+
+  <button class="btn save" onclick="saveScore()">Save Ball</button>
+
+  <div id="status"></div>
+</div>
+
+<div id="denied"></div>
+
+<script src="js/score.js"></script>
+
+</body>
+</html>
