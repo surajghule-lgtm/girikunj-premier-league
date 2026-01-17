@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Live Scoring - GPL</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<h1>Live Scoring Panel</h1>
+
+<h2 id="score">Score: 0 / 0</h2>
+
+<button onclick="addRun(1)">+1 Run</button>
+<button onclick="addRun(4)">+4 Runs</button>
+<button onclick="addRun(6)">+6 Runs</button>
+<button onclick="addWicket()">Wicket</button>
+
+<script>
+let runs = 0;
+let wickets = 0;
+
+function addRun(r) {
+  runs += r;
+  updateScore();
+}
+
+function addWicket() {
+  wickets += 1;
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById("score").innerText =
+    "Score: " + runs + " / " + wickets;
+}
+</script>
+
+</body>
+</html>
