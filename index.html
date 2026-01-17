@@ -1,45 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Girikunj Premier League 2026</title>
-    <link rel="stylesheet" href="css/style.css">
+  <title>GPL 2 2026</title>
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <header>
-    <h1>GIRIKUNJ PREMIER LEAGUE 2026</h1>
-    <p>5 Overs | Tennis Ball | 5:00 PM – 10:00 PM</p>
+  <h1>GIRIKUNJ PREMIER LEAGUE 2026</h1>
 </header>
 
 <nav>
-    <a href="index.html">Home</a>
-    <a href="teams.html">Teams</a>
-    <a href="matches.html">Matches</a>
-    <a href="points.html">Points</a>
-    <a href="live.html">Watch Live</a>
+  <a href="index.html">Home</a>
+  <a href="teams.html">Teams</a>
+  <a href="matches.html">Matches</a>
+  <a href="points.html">Points</a>
+  <a href="live.html">Watch Live</a>
 </nav>
 
-<section>
-    <div id="liveMatchBox" style="display:none;" class="live-box">
+<section class="card">
   <h2>🔴 LIVE MATCH</h2>
-  <p id="liveTeams"></p>
-  <p id="liveScore"></p>
-</div>
-
-    <h2>Welcome to GPL 2026</h2>
-    <p>
-        Girikunj Premier League 2026 is a housing society cricket tournament
-        featuring 4 teams, exciting league matches and a grand final.
-    </p>
+  <div id="homeLive">Waiting for live score...</div>
 </section>
 
-<footer>
-    <p>© 2026 Girikunj Premier League</p>
-</footer>
-<script src="js/data.js"></script>
-<script src="js/public.js"></script>
+<script>
+function updateHomeScore() {
+  const data = JSON.parse(localStorage.getItem("liveScore"));
+  if (!data) return;
+
+  document.getElementById("homeLive").innerHTML = `
+    <b>${data.match}</b><br>
+    ${data.runs}/${data.wickets} (${data.overs} ov)
+  `;
+}
+updateHomeScore();
+setInterval(updateHomeScore, 2000);
+</script>
 
 </body>
 </html>
-
