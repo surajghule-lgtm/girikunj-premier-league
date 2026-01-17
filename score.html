@@ -9,8 +9,8 @@
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: linear-gradient(to bottom, #061a33, #020b18);
-      color: white;
+      background: #071a33;
+      color: #fff;
       text-align: center;
     }
 
@@ -18,55 +18,46 @@
       margin: 20px 0;
     }
 
-    .card {
-      background: #0e2a47;
-      max-width: 500px;
-      margin: 20px auto;
+    .container {
+      max-width: 360px;
+      margin: 0 auto;
+      background: #0f2c52;
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.5);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      border-radius: 10px;
     }
 
     .field {
-      display: flex;
-      flex-direction: column;
+      margin-bottom: 14px;
       text-align: left;
     }
 
     label {
-      font-size: 14px;
+      display: block;
       margin-bottom: 4px;
+      font-size: 14px;
       color: #ffcc00;
     }
 
     input {
+      width: 100%;
       padding: 8px;
+      font-size: 14px;
       border-radius: 6px;
       border: none;
-      font-size: 14px;
-    }
-
-    .full {
-      grid-column: span 2;
+      box-sizing: border-box;
     }
 
     button {
       width: 100%;
+      margin-top: 10px;
       padding: 12px;
       font-size: 16px;
       background: #ffcc00;
       color: #000;
       border: none;
-      border-radius: 8px;
-      cursor: pointer;
+      border-radius: 6px;
       font-weight: bold;
-      margin-top: 10px;
+      cursor: pointer;
     }
 
     button:hover {
@@ -75,24 +66,14 @@
 
     #status {
       margin-top: 10px;
-      font-weight: bold;
       color: lightgreen;
+      font-weight: bold;
     }
 
     #denied {
-      color: red;
       margin-top: 30px;
+      color: red;
       font-size: 18px;
-    }
-
-    /* 📱 Mobile */
-    @media (max-width: 600px) {
-      .grid {
-        grid-template-columns: 1fr;
-      }
-      .full {
-        grid-column: span 1;
-      }
     }
   </style>
 </head>
@@ -100,52 +81,47 @@
 
 <h1>🔐 Live Scoring Panel (Admin)</h1>
 
-<div id="panel" class="card" style="display:none;">
-  <div class="grid">
+<div id="panel" class="container" style="display:none;">
 
-    <div class="field">
-      <label>Runs</label>
-      <input id="runs" type="number" value="0">
-    </div>
-
-    <div class="field">
-      <label>Wickets</label>
-      <input id="wickets" type="number" value="0">
-    </div>
-
-    <div class="field full">
-      <label>Overs (example: 3.2)</label>
-      <input id="overs" type="text" value="0.0">
-    </div>
-
-    <div class="field">
-      <label>Batsman</label>
-      <input id="batsman" type="text" placeholder="Player name">
-    </div>
-
-    <div class="field">
-      <label>Runs (this ball)</label>
-      <input id="batRuns" type="number" value="0">
-    </div>
-
-    <div class="field full">
-      <label>Bowler (for wicket)</label>
-      <input id="bowler" type="text" placeholder="Bowler name">
-    </div>
-
-    <div class="full">
-      <button id="saveBtn">Save Score</button>
-    </div>
-
+  <div class="field">
+    <label>Runs</label>
+    <input id="runs" type="number" value="0">
   </div>
 
-  <p id="status"></p>
+  <div class="field">
+    <label>Wickets</label>
+    <input id="wickets" type="number" value="0">
+  </div>
+
+  <div class="field">
+    <label>Overs (example: 3.2)</label>
+    <input id="overs" type="text" value="0.0">
+  </div>
+
+  <div class="field">
+    <label>Batsman</label>
+    <input id="batsman" type="text" placeholder="Player name">
+  </div>
+
+  <div class="field">
+    <label>Runs this ball</label>
+    <input id="batRuns" type="number" value="0">
+  </div>
+
+  <div class="field">
+    <label>Bowler (for wicket)</label>
+    <input id="bowler" type="text" placeholder="Bowler name">
+  </div>
+
+  <button id="saveBtn">Save Score</button>
+
+  <div id="status"></div>
 </div>
 
-<p id="denied"></p>
+<div id="denied"></div>
 
 <script>
-/* 🔐 PASSWORD */
+/* PASSWORD */
 const PASSWORD = "GPL2026";
 const entered = prompt("Enter Admin Password");
 
@@ -155,7 +131,7 @@ if (entered === PASSWORD) {
   document.getElementById("denied").innerText = "🚫 Access Denied";
 }
 
-/* 💾 SAVE SCORE */
+/* SAVE SCORE */
 function saveScore() {
   const runs = Number(document.getElementById("runs").value);
   const wickets = Number(document.getElementById("wickets").value);
