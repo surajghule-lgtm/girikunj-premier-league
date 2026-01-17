@@ -28,6 +28,14 @@ if (userInput !== adminPassword) {
 
   <label>Overs (example: 3.2)</label><br>
   <input type="text" id="overs" value="0.0"><br><br>
+<label>Batsman</label><br>
+<input type="text" id="batsman" placeholder="Player name"><br><br>
+
+<label>Runs Scored (this ball)</label><br>
+<input type="number" id="batRuns" value="0"><br><br>
+
+<label>Bowler (for wicket)</label><br>
+<input type="text" id="bowler" placeholder="Bowler name"><br><br>
 
   <button onclick="saveScore()">Save Score</button>
 
@@ -68,5 +76,6 @@ function saveScore() {
 
 </body>
 </html>
+
 
 
