@@ -37,21 +37,36 @@ if (userInput !== adminPassword) {
 
 <script>
 function saveScore() {
-  const runs = document.getElementById("runs").value;
-  const wickets = document.getElementById("wickets").value;
+  const runs = parseInt(document.getElementById("runs").value);
+  const wickets = parseInt(document.getElementById("wickets").value);
   const overs = document.getElementById("overs").value;
 
+  const batsman = document.getElementById("batsman").value;
+  const batRuns = parseInt(document.getElementById("batRuns").value);
+  const bowler = document.getElementById("bowler").value;
+
   localStorage.setItem("liveScore", JSON.stringify({
-    runs: runs,
-    wickets: wickets,
-    overs: overs
+    runs, wickets, overs
   }));
 
-  document.getElementById("status").innerText =
-    "✅ Score Updated: " + runs + "/" + wickets + " (" + overs + " overs)";
+  let players = JSON.parse(localStorage.getItem("players"));
+
+  if (players[batsman]) {
+    players[batsman].runs += batRuns;
+  }
+
+  if (bowler && players[bowler]) {
+    players[bowler].wickets += 1;
+  }
+
+  localStorage.setItem("players", JSON.stringify(players));
+
+  document.getElementById("status").innerText = "✅ Score & Player Stats Updated";
 }
+
 </script>
 
 </body>
 </html>
+
 
