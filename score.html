@@ -1,59 +1,126 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Live Scoring Admin</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta charset="UTF-8">
+  <title>GPL 2026 – Live Scoring Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#061a33, #020b18);
+      color: #fff;
+      text-align: center;
+    }
+
+    h1 { margin: 20px 0; }
+
+    .card {
+      max-width: 420px;
+      margin: 30px auto;
+      background: #0f2d52;
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(0,0,0,.6);
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin-top: 12px;
+      color: #ffcc00;
+      font-size: 14px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border-radius: 8px;
+      border: none;
+      box-sizing: border-box;
+      font-size: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 14px;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+
+    .login { background: #00d26a; color: #000; }
+    .run { background: #ffcc00; color: #000; }
+    .wicket { background: #ff4d4d; color: #fff; }
+    .save { background: #00bcd4; color: #000; }
+
+    .score {
+      font-size: 26px;
+      margin: 15px 0;
+      color: #00ffcc;
+      font-weight: bold;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .hidden { display: none; }
+    #status { margin-top: 10px; color: lightgreen; }
+  </style>
 </head>
+
 <body>
 
 <h1>🔐 Live Scoring Panel</h1>
 
-<div class="card">
-  <input id="match" placeholder="Team A vs Team B"><br><br>
-
-  <input id="runs" type="number" placeholder="Runs">
-  <input id="wickets" type="number" placeholder="Wickets"><br><br>
-
-  <input id="overs" placeholder="Overs (e.g. 3.2)"><br><br>
-
-  <input id="batsman" placeholder="Batsman">
-  <input id="ballRuns" type="number" placeholder="Runs this ball"><br><br>
-
-  <input id="bowler" placeholder="Bowler (if wicket)"><br><br>
-
-  <button onclick="saveScore()">Save Ball</button>
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <label>Admin Password</label>
+  <input type="password" id="password" placeholder="Enter password">
+  <button class="login" onclick="login()">Login</button>
 </div>
 
-<script>
-function saveScore() {
-  const match = document.getElementById("match").value;
-  const runs = Number(document.getElementById("runs").value);
-  const wickets = Number(document.getElementById("wickets").value);
-  const overs = document.getElementById("overs").value;
-  const batsman = document.getElementById("batsman").value;
-  const ballRuns = Number(document.getElementById("ballRuns").value);
-  const bowler = document.getElementById("bowler").value;
+<!-- SCORING -->
+<div class="card hidden" id="panel">
 
-  // Live Score
-  localStorage.setItem("liveScore", JSON.stringify({
-    match, runs, wickets, overs
-  }));
+  <label>Match</label>
+  <select id="match">
+    <option>Lions vs Tigers</option>
+    <option>Lions vs Supersonic</option>
+    <option>Tigers vs Strikers</option>
+  </select>
 
-  // Player Stats
-  const stats = JSON.parse(localStorage.getItem("playerStats")) || {};
-  if (!stats[batsman]) stats[batsman] = { runs: 0, balls: 0 };
-  stats[batsman].runs += ballRuns;
-  stats[batsman].balls++;
+  <div class="score" id="preview">0/0 (0.0)</div>
 
-  if (bowler && wickets > 0) {
-    if (!stats[bowler]) stats[bowler] = { wickets: 0 };
-    stats[bowler].wickets = (stats[bowler].wickets || 0) + 1;
-  }
+  <label>Overs</label>
+  <input id="overs" value="0.0">
 
-  localStorage.setItem("playerStats", JSON.stringify(stats));
-  alert("Score Saved");
-}
-</script>
+  <label>Batsman</label>
+  <input id="batsman">
 
+  <label>Bowler</label>
+  <input id="bowler">
+
+  <div class="grid">
+    <button class="run" onclick="addRuns(1)">+1</button>
+    <button class="run" onclick="addRuns(4)">+4</button>
+    <button class="run" onclick="addRuns(6)">+6</button>
+    <button class="wicket" onclick="addWicket()">W</button>
+  </div>
+
+  <button class="save" onclick="saveBall()">Save Ball</button>
+  <div id="status"></div>
+</div>
+
+<!-- ✅ THIS LINE IS CRITICAL -->
+<script src="js/score.js"></script>
 </body>
 </html>
