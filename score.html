@@ -2,55 +2,55 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Live Scoring Admin - GPL</title>
+  <title>Live Scoring Admin - GPL 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
+<!-- 🔐 ADMIN PASSWORD PROTECTION -->
 <script>
-/* ===== ADMIN PASSWORD (RUNS FIRST) ===== */
 const ADMIN_PASSWORD = "GPL2026";
-const entered = prompt("Enter Admin Password");
+const enteredPassword = prompt("Enter Admin Password");
 
-if (entered !== ADMIN_PASSWORD) {
-  document.body.innerHTML = "<h1 style='color:red;text-align:center;'>🚫 Access Denied</h1>";
-  throw new Error("Unauthorized");
+if (enteredPassword !== ADMIN_PASSWORD) {
+  document.body.innerHTML =
+    "<h1 style='color:red;text-align:center;margin-top:50px;'>🚫 Access Denied</h1>";
 }
 </script>
 
 <h1>🔐 Live Scoring Panel (Admin)</h1>
 
-<div style="max-width:400px;margin:auto;">
+<div style="max-width:400px;margin:auto;text-align:left;">
 
-  <label>Runs</label><br>
-  <input type="number" id="runs" value="0"><br><br>
+  <label>Runs</label>
+  <input type="number" id="runs" value="0">
 
-  <label>Wickets</label><br>
-  <input type="number" id="wickets" value="0"><br><br>
+  <label>Wickets</label>
+  <input type="number" id="wickets" value="0">
 
-  <label>Overs</label><br>
-  <input type="text" id="overs" value="0.0"><br><br>
+  <label>Overs (example: 3.2)</label>
+  <input type="text" id="overs" value="0.0">
 
-  <label>Batsman</label><br>
-  <input type="text" id="batsman"><br><br>
+  <label>Batsman</label>
+  <input type="text" id="batsman" placeholder="Player name">
 
-  <label>Runs Scored (this ball)</label><br>
-  <input type="number" id="batRuns" value="0"><br><br>
+  <label>Runs Scored (this ball)</label>
+  <input type="number" id="batRuns" value="0">
 
-  <label>Bowler (for wicket)</label><br>
-  <input type="text" id="bowler"><br><br>
+  <label>Bowler (for wicket)</label>
+  <input type="text" id="bowler" placeholder="Bowler name">
 
   <button type="button" onclick="saveScore()">Save Score</button>
 
   <p id="status" style="margin-top:15px;font-weight:bold;"></p>
 </div>
 
+<!-- 📊 SCORING LOGIC -->
 <script>
-/* ===== MAIN SCORING LOGIC ===== */
 function saveScore() {
-  alert("saveScore() function CALLED"); // 🔍 DEBUG LINE
 
+  // Read inputs
   const runs = Number(document.getElementById("runs").value);
   const wickets = Number(document.getElementById("wickets").value);
   const overs = document.getElementById("overs").value;
@@ -59,30 +59,38 @@ function saveScore() {
   let batRuns = Number(document.getElementById("batRuns").value);
   let bowler = document.getElementById("bowler").value.trim();
 
-  // Normalize names
+  // Normalize names (capitalize)
   batsman = batsman.replace(/\b\w/g, c => c.toUpperCase());
   bowler = bowler.replace(/\b\w/g, c => c.toUpperCase());
 
   // Save live score
   localStorage.setItem("liveScore", JSON.stringify({
-    runs, wickets, overs
+    runs: runs,
+    wickets: wickets,
+    overs: overs
   }));
 
-  // Load players
+  // Load or init players
   let players = JSON.parse(localStorage.getItem("players")) || {};
 
   if (batsman) {
-    if (!players[batsman]) players[batsman] = { runs: 0, wickets: 0 };
+    if (!players[batsman]) {
+      players[batsman] = { runs: 0, wickets: 0 };
+    }
     players[batsman].runs += batRuns;
   }
 
   if (bowler) {
-    if (!players[bowler]) players[bowler] = { runs: 0, wickets: 0 };
+    if (!players[bowler]) {
+      players[bowler] = { runs: 0, wickets: 0 };
+    }
     players[bowler].wickets += 1;
   }
 
+  // Save players
   localStorage.setItem("players", JSON.stringify(players));
 
+  // Status message
   document.getElementById("status").innerText =
     "✅ Score & Player Stats Saved Successfully";
 }
