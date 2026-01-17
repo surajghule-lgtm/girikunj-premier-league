@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Live Scoring Admin - GPL 2026</title>
+  <title>GPL 2026 – Live Scoring Admin</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/style.css">
 </head>
@@ -10,47 +10,45 @@
 
 <h1>🔐 Live Scoring Panel (Admin)</h1>
 
-<div id="adminPanel" style="max-width:400px;margin:auto;text-align:left;display:none;">
+<div id="panel" style="display:none; max-width:400px; margin:auto; text-align:left;">
 
   <label>Runs</label>
-  <input type="number" id="runs" value="0">
+  <input id="runs" type="number" value="0">
 
   <label>Wickets</label>
-  <input type="number" id="wickets" value="0">
+  <input id="wickets" type="number" value="0">
 
-  <label>Overs (example: 3.2)</label>
-  <input type="text" id="overs" value="0.0">
+  <label>Overs (e.g. 3.2)</label>
+  <input id="overs" type="text" value="0.0">
 
   <label>Batsman</label>
-  <input type="text" id="batsman" placeholder="Player name">
+  <input id="batsman" type="text">
 
-  <label>Runs Scored (this ball)</label>
-  <input type="number" id="batRuns" value="0">
+  <label>Runs this ball</label>
+  <input id="batRuns" type="number" value="0">
 
-  <label>Bowler (for wicket)</label>
-  <input type="text" id="bowler" placeholder="Bowler name">
+  <label>Bowler</label>
+  <input id="bowler" type="text">
 
   <button id="saveBtn">Save Score</button>
 
-  <p id="status" style="margin-top:15px;font-weight:bold;"></p>
+  <p id="status" style="font-weight:bold;"></p>
 </div>
 
-<p id="errorMsg" style="color:red;text-align:center;font-size:18px;"></p>
+<p id="denied" style="color:red;text-align:center;"></p>
 
-<!-- 🔐 PASSWORD CHECK (SAFE) -->
 <script>
-const ADMIN_PASSWORD = "GPL2026";
-const entered = prompt("Enter Admin Password");
+/* ---------------- PASSWORD ---------------- */
+const PASSWORD = "GPL2026";
+const input = prompt("Enter Admin Password");
 
-if (entered === ADMIN_PASSWORD) {
-  document.getElementById("adminPanel").style.display = "block";
+if (input === PASSWORD) {
+  document.getElementById("panel").style.display = "block";
 } else {
-  document.getElementById("errorMsg").innerText = "🚫 Access Denied";
+  document.getElementById("denied").innerText = "🚫 Access Denied";
 }
-</script>
 
-<!-- 📊 SCORING LOGIC -->
-<script>
+/* ---------------- SAVE SCORE FUNCTION ---------------- */
 function saveScore() {
   const runs = Number(document.getElementById("runs").value);
   const wickets = Number(document.getElementById("wickets").value);
@@ -63,10 +61,12 @@ function saveScore() {
   batsman = batsman.replace(/\b\w/g, c => c.toUpperCase());
   bowler = bowler.replace(/\b\w/g, c => c.toUpperCase());
 
+  /* Save live score */
   localStorage.setItem("liveScore", JSON.stringify({
     runs, wickets, overs
   }));
 
+  /* Player stats */
   let players = JSON.parse(localStorage.getItem("players")) || {};
 
   if (batsman) {
@@ -82,10 +82,10 @@ function saveScore() {
   localStorage.setItem("players", JSON.stringify(players));
 
   document.getElementById("status").innerText =
-    "✅ Score & Player Stats Saved Successfully";
+    "✅ Score saved successfully";
 }
 
-// SAFELY attach button click
+/* ---------------- BUTTON BINDING ---------------- */
 document.getElementById("saveBtn").addEventListener("click", saveScore);
 </script>
 
