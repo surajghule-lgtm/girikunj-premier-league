@@ -8,130 +8,124 @@
   <style>
     body {
       margin: 0;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: linear-gradient(to bottom, #061a33, #020b18);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(#061a33, #020b18);
       color: #fff;
       text-align: center;
     }
 
     h1 {
-      margin: 15px 0;
+      margin: 20px 0;
     }
 
     .card {
-      max-width: 380px;
-      margin: 15px auto;
+      max-width: 420px;
+      margin: 20px auto;
       background: #0f2d52;
-      padding: 18px;
+      padding: 20px;
       border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      box-shadow: 0 0 20px rgba(0,0,0,0.6);
     }
 
     label {
       display: block;
       text-align: left;
-      margin-top: 10px;
-      font-size: 13px;
+      margin-top: 12px;
+      font-size: 14px;
       color: #ffcc00;
     }
 
-    select, input {
+    input, select {
       width: 100%;
-      padding: 9px;
-      font-size: 14px;
+      padding: 10px;
+      margin-top: 5px;
       border-radius: 6px;
       border: none;
       box-sizing: border-box;
-      margin-top: 4px;
+      font-size: 14px;
     }
 
-    .score-preview {
-      font-size: 22px;
+    .score {
+      font-size: 26px;
       font-weight: bold;
-      margin: 15px 0;
       color: #00ffcc;
+      margin: 15px 0;
     }
 
-    .btn-row {
-      display: flex;
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      margin-top: 12px;
-      flex-wrap: wrap;
+      margin-top: 15px;
     }
 
-    .btn {
-      flex: 1;
+    button {
       padding: 14px;
       font-size: 16px;
+      font-weight: bold;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-weight: bold;
     }
 
     .run { background: #ffcc00; color: #000; }
     .wicket { background: #ff4d4d; color: #fff; }
-
-    .save {
-      background: #00cc66;
-      color: #000;
-      width: 100%;
-      margin-top: 15px;
-    }
+    .save { background: #00cc66; color: #000; margin-top: 15px; width: 100%; }
 
     #status {
       margin-top: 10px;
-      font-weight: bold;
       color: lightgreen;
+      font-weight: bold;
     }
 
-    #denied {
-      color: red;
-      margin-top: 30px;
-      font-size: 18px;
-    }
+    .hidden { display: none; }
   </style>
 </head>
 <body>
 
 <h1>🔐 Live Scoring Panel</h1>
 
-<div id="panel" class="card" style="display:none;">
+<!-- LOGIN -->
+<div class="card" id="loginCard">
+  <label>Admin Password</label>
+  <input type="password" id="password" placeholder="Enter password">
+  <button class="save" onclick="login()">Login</button>
+</div>
+
+<!-- SCORING PANEL -->
+<div class="card hidden" id="panel">
 
   <label>Match</label>
   <select id="match">
     <option>Lions vs Tigers</option>
     <option>Lions vs Supersonic</option>
     <option>Tigers vs Strikers</option>
-    <option>Supersonic vs Strikers</option>
+    <option>Supersonic vs Lions</option>
   </select>
 
-  <div class="score-preview" id="preview">0/0 (0.0)</div>
+  <div class="score" id="preview">0/0 (0.0)</div>
 
   <label>Overs</label>
-  <input id="overs" type="text" value="0.0">
+  <input id="overs" value="0.0">
 
   <label>Batsman</label>
-  <input id="batsman" placeholder="Player name">
+  <input id="batsman">
 
   <label>Bowler</label>
-  <input id="bowler" placeholder="Bowler name">
+  <input id="bowler">
 
-  <div class="btn-row">
-    <button class="btn run" onclick="addRuns(1)">+1</button>
-    <button class="btn run" onclick="addRuns(4)">+4</button>
-    <button class="btn run" onclick="addRuns(6)">+6</button>
-    <button class="btn wicket" onclick="addWicket()">W</button>
+  <div class="buttons">
+    <button class="run" onclick="addRuns(1)">+1</button>
+    <button class="run" onclick="addRuns(4)">+4</button>
+    <button class="run" onclick="addRuns(6)">+6</button>
+    <button class="wicket" onclick="addWicket()">W</button>
   </div>
 
-  <button class="btn save" onclick="saveScore()">Save Ball</button>
+  <button class="save" onclick="saveBall()">Save Ball</button>
 
   <div id="status"></div>
 </div>
 
-<div id="denied"></div>
-
 <script src="js/score.js"></script>
-
 </body>
 </html>
